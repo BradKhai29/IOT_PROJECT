@@ -45,12 +45,13 @@ void setup() {
 }
 
 void loop() {
-  //check every inpunt on time
+  //check every input on time
   if (Serial.available() > 0) {
     command = Serial.read();
     if (!autoMode) {
       Stop();  //stop when uer don't click anything in controler mode
     }
+
     switch (command) {
       case 'F':
         if (!autoMode) {
@@ -77,17 +78,20 @@ void loop() {
           autoMode = true;
         }
         break;
-      case 'w':  //turn off auto mode
+      case 'w':  //turn Off auto mode
         if (autoMode == true) {
           autoMode = false;
         }
         break;
     }
   }
-  //Auto mode is on
+  //If Auto mode is on
   if (autoMode) {
     autoModef();
   }
+  //Try to add Serial.begin to clear the buffer?
+  //Serial.begin(9600);
+
 }
 
 void autoModef() {
@@ -119,6 +123,7 @@ void autoModef() {
   }
   distance = readPing();
 }
+
 void forward() {
   motor1.setSpeed(255);  //Define maximum velocity
   motor1.run(FORWARD);   //rotate the motor clockwise
